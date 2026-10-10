@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-website-settings-url="https://nazrah-food.up.railway.app/api/public/website-settings">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -302,6 +302,11 @@
             <p class="eyebrow" data-en="[ SIMPLE COMMERCIAL MODEL ]" data-ar="[ نموذج تجاري واضح ]">[ SIMPLE COMMERCIAL MODEL ]</p>
             <h2 data-en="See it first. Configure it when it fits." data-ar="جرّبها أولًا، ثم خصصها عندما تناسبك.">See it first. Configure it when it fits.</h2>
           </div>
+          <aside class="promotion-banner" id="promotion-banner" hidden>
+            <p class="promotion-badge" id="promotion-badge"></p>
+            <div><strong id="promotion-title"></strong><p id="promotion-description"></p></div>
+            <span class="promotion-dates" id="promotion-dates"></span>
+          </aside>
           <div class="pricing-grid">
             <article class="pricing-card">
               <p class="plan-label" data-en="FREE DEMO" data-ar="تجربة مجانية">FREE DEMO</p>
@@ -318,8 +323,8 @@
               <span class="featured-badge" data-en="FULL PLATFORM" data-ar="المنصة الكاملة">FULL PLATFORM</span>
               <p class="plan-label" data-en="FULL SUBSCRIPTION" data-ar="اشتراك كامل">FULL SUBSCRIPTION</p>
               <h3 data-en="Your configured workspace" data-ar="مساحة عمل مخصصة لك">Your configured workspace</h3>
-              <div class="price"><strong>$999</strong><span data-en="one-time setup" data-ar="إعداد لمرة واحدة">one-time setup</span></div>
-              <p class="annual-price"><strong>$120</strong> <span data-en="per year after setup" data-ar="سنويًا بعد الإعداد">per year after setup</span></p>
+              <div class="price"><span class="price-original" id="full-setup-price-original" hidden></span><strong id="full-setup-price">$750</strong><span data-en="one-time setup" data-ar="إعداد لمرة واحدة">one-time setup</span></div>
+              <p class="annual-price"><strong id="full-annual-price">$120</strong> <span data-en="per year after setup" data-ar="سنويًا بعد الإعداد">per year after setup</span></p>
               <ul>
                 <li data-en="Configured modules and permissions" data-ar="وحدات وصلاحيات مخصصة">Configured modules and permissions</li>
                 <li data-en="Private company data boundary" data-ar="حدود بيانات خاصة بالشركة">Private company data boundary</li>
