@@ -152,11 +152,20 @@
     content: document.getElementById("dashboard-content"),
     dialog: document.getElementById("demo-dialog"),
     form: document.getElementById("demo-form"),
-    formStatus: document.getElementById("form-status")
+    formStatus: document.getElementById("form-status"),
+    promotionBanner: document.getElementById("promotion-banner"),
+    promotionBadge: document.getElementById("promotion-badge"),
+    promotionTitle: document.getElementById("promotion-title"),
+    promotionDescription: document.getElementById("promotion-description"),
+    promotionDates: document.getElementById("promotion-dates"),
+    setupPrice: document.getElementById("full-setup-price"),
+    setupPriceOriginal: document.getElementById("full-setup-price-original"),
+    annualPrice: document.getElementById("full-annual-price")
   };
 
   let locale = storage.get("nazrah-public-locale", "en") === "ar" ? "ar" : "en";
   let activeModule = "overview";
+  let websiteSettings = null;
 
   function tx(en, ar) { return locale === "ar" ? ar : en; }
 
@@ -170,7 +179,75 @@
     storage.set("nazrah-public-locale", locale);
     renderNavigation();
     renderModule(activeModule);
+    renderWebsiteSettings();
     if (els.formStatus.textContent) els.formStatus.textContent = copy[locale].stored;
+  }
+
+  function formatUsd(cents) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0
+    }).format(cents / 100);
+  }
+
+  function localizedValue(value, fallback = "") {
+    if (!value || typeof value !== "object") return fallback;
+    const selected = value[locale];
+    return typeof selected === "string" ? selected : fallback;
+  }
+
+  function renderWebsiteSettings() {
+    if (!websiteSettings) return;
+    const setupFeeCents = Number(websiteSettings.setupFeeCents);
+    const annualFeeCents = Number(websiteSettings.annualFeeCents);
+    if (!Number.isSafeInteger(setupFeeCents) || setupFeeCents < 0) return;
+    if (!Number.isSafeInteger(annualFeeCents) || annualFeeCents < 0) return;
+
+    const promotion = websiteSettings.promotion && typeof websiteSettings.promotion === "object"
+      ? websiteSettings.promotion
+      : null;
+    const promotionPrice = Number(promotion?.setupFeeCents);
+    const promotionActive = promotion?.active === true
+      && Number.isSafeInteger(promotionPrice)
+      && promotionPrice >= 0
+      && promotionPrice < setupFeeCents;
+
+    els.setupPrice.textContent = formatUsd(promotionActive ? promotionPrice : setupFeeCents);
+    els.annualPrice.textContent = formatUsd(annualFeeCents);
+    els.setupPriceOriginal.hidden = !promotionActive;
+    els.setupPriceOriginal.textContent = promotionActive ? formatUsd(setupFeeCents) : "";
+    els.promotionBanner.hidden = !promotionActive;
+    if (!promotionActive) return;
+
+    els.promotionBadge.textContent = localizedValue(promotion.badge, tx("LIMITED OFFER", "عرض محدود"));
+    els.promotionTitle.textContent = localizedValue(promotion.title);
+    els.promotionDescription.textContent = localizedValue(promotion.description);
+    const start = typeof promotion.startsOn === "string" ? promotion.startsOn : "";
+    const end = typeof promotion.endsOn === "string" ? promotion.endsOn : "";
+    els.promotionDates.textContent = start && end
+      ? tx(`${start} to ${end}`, `${start} إلى ${end}`)
+      : end
+        ? tx(`Until ${end}`, `حتى ${end}`)
+        : start
+          ? tx(`From ${start}`, `من ${start}`)
+          : "";
+  }
+
+  async function loadWebsiteSettings() {
+    const localPreview = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+    const url = localPreview
+      ? "http://127.0.0.1:3013/api/public/website-settings"
+      : els.html.dataset.websiteSettingsUrl;
+    if (!url) return;
+    try {
+      const response = await fetch(url, { credentials: "omit", headers: { Accept: "application/json" } });
+      if (!response.ok) return;
+      websiteSettings = await response.json();
+      renderWebsiteSettings();
+    } catch {
+      // The bundled public price remains visible when the dashboard API is unavailable.
+    }
   }
 
   function applyTheme(theme) {
@@ -323,4 +400,5 @@
   applyTheme(initialTheme);
   renderModule(activeModule);
   initializeSectionReveals();
+  void loadWebsiteSettings();
 })();
