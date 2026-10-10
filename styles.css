@@ -223,6 +223,13 @@ button { color: inherit; }
 .card-icon { width: 42px; height: 42px; display: grid; place-content: center; border: 1px solid color-mix(in srgb, var(--blue) 35%, var(--line)); border-radius: 6px; background: var(--blue-soft); color: var(--blue); font-size: 19px; }
 .capability-card h3 { margin: 24px 0 10px; font-size: 24px; }.capability-card p { max-width: 700px; margin: 0; color: var(--muted); }.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-block-start: 22px; }.tag-row span { padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 11px; }
 .mini-chart { height: 160px; margin-block-start: 20px; border-block-end: 1px solid var(--line); }.chart-line { fill: none; stroke: var(--blue); stroke-width: 2; }.chart-fill { fill: url(#fill); }
+.market-intelligence-card { display: grid; grid-template-columns: minmax(0, .82fr) minmax(420px, 1.18fr); grid-template-rows: auto auto auto 1fr; column-gap: 56px; align-items: start; }
+.market-intelligence-card .card-icon { grid-column: 1; grid-row: 1; }
+.market-intelligence-card h3 { grid-column: 1; grid-row: 2; }
+.market-intelligence-card > p { grid-column: 1; grid-row: 3; }
+.market-intelligence-card .tag-row { grid-column: 1; grid-row: 4; align-self: start; }
+.market-intelligence-card .mini-chart { grid-column: 2; grid-row: 1 / 5; align-self: stretch; height: auto; min-height: 250px; margin-block-start: 0; display: flex; align-items: end; }
+.market-intelligence-card .mini-chart svg { width: 100%; height: 78%; }
 .metric-row { display: flex; gap: 12px; margin-block-start: 28px; }.metric-row span { min-width: 125px; padding: 13px; border: 1px solid var(--line); background: var(--surface); }.metric-row strong, .metric-row small { display: block; }.metric-row strong { font-size: 26px; }.metric-row small { color: var(--muted); }
 .contact-stack { display: flex; margin-block-start: 36px; }.contact-stack span { width: 46px; height: 46px; margin-inline-end: -9px; display: grid; place-content: center; border: 3px solid var(--bg); border-radius: 50%; background: var(--blue); color: white; font-size: 11px; }.contact-stack span:nth-child(2) { background: #735ee7; }.contact-stack span:nth-child(3) { background: #158c89; }.contact-stack span:last-child { background: var(--surface-strong); color: var(--ink); }
 .document-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr); grid-template-rows: auto auto 1fr; column-gap: 56px; align-items: start; }
@@ -351,6 +358,10 @@ button { color: inherit; }
   .integration-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .capability-card-wide { grid-column: span 1; }
   .capability-card { min-height: 300px; }
+  .market-intelligence-card { grid-template-columns: 1fr; grid-template-rows: auto; gap: 0; }
+  .market-intelligence-card .card-icon, .market-intelligence-card h3, .market-intelligence-card > p, .market-intelligence-card .tag-row, .market-intelligence-card .mini-chart { grid-column: 1; grid-row: auto; }
+  .market-intelligence-card .mini-chart { height: 150px; min-height: 0; margin-block-start: 20px; }
+  .market-intelligence-card .mini-chart svg { height: 100%; }
   .document-card { grid-template-columns: 1fr; grid-template-rows: auto; gap: 0; }
   .document-card .card-icon, .document-card h3, .document-card > p, .document-card .document-demo { grid-column: 1; grid-row: auto; }
   .document-card .document-demo { margin-block-start: 34px; }
