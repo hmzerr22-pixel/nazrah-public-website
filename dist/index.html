@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./app.js?v=20261011-monthly-pricing" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261011-clean-hero" />
+    <script src="./app.js?v=20261011-hero-navigation-3" defer></script>
+    <script type="module" src="./hero-ripple.js?v=20261011-full-hero-ripples"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -55,6 +56,10 @@
     <main id="main">
       <section class="hero">
         <div class="hero-glow" aria-hidden="true"></div>
+        <canvas class="hero-ripple" id="hero-ripple" aria-hidden="true"></canvas>
+        <div class="hero-center-rings" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
         <div class="shell hero-grid">
           <div class="hero-copy">
             <p class="eyebrow" data-en="[ COMMODITY OPERATIONS, WITH EVIDENCE ]" data-ar="[ عمليات السلع، مدعومة بالأدلة ]">[ COMMODITY OPERATIONS, WITH EVIDENCE ]</p>
@@ -77,15 +82,15 @@
           </div>
 
           <div class="hero-blueprint" aria-label="NAZRAH platform summary">
-            <div class="blueprint-grid" aria-hidden="true"></div>
-            <div class="blueprint-node node-market"><span>01</span><strong data-en="Market" data-ar="السوق">Market</strong></div>
-            <div class="blueprint-node node-trade"><span>02</span><strong data-en="Trade" data-ar="التجارة">Trade</strong></div>
-            <div class="blueprint-node node-evidence"><span>03</span><strong data-en="Evidence" data-ar="الأدلة">Evidence</strong></div>
-            <div class="blueprint-core">
+            <a class="blueprint-node blueprint-link node-market" href="#capability-market"><span>01</span><strong data-en="Market" data-ar="السوق">Market</strong></a>
+            <a class="blueprint-node blueprint-link node-trade" href="#capability-trade"><span>02</span><strong data-en="Trade" data-ar="التجارة">Trade</strong></a>
+            <a class="blueprint-node blueprint-link node-evidence" href="#capability-evidence"><span>03</span><strong data-en="Evidence" data-ar="الأدلة">Evidence</strong></a>
+            <a class="blueprint-node blueprint-link node-documents" href="#capability-documents"><span>04</span><strong data-en="Documents" data-ar="المستندات">Documents</strong></a>
+            <a class="blueprint-core blueprint-link" href="#platform-showcase">
               <span class="brand-mark brand-mark-large" aria-hidden="true"><img class="brand-logo" src="./assets/brand/nazrah-mark-option-3.png" alt="" /></span>
               <strong>NAZRAH</strong>
               <small data-en="One operational picture" data-ar="صورة تشغيلية واحدة">One operational picture</small>
-            </div>
+            </a>
           </div>
         </div>
       </section>
@@ -98,7 +103,7 @@
             <p data-en="Choose a module to see how each part of the dashboard fits into the same operating system." data-ar="اختر وحدة لترى كيف تتكامل كل أجزاء الداشبورد داخل نظام تشغيل واحد.">Choose a module to see how each part of the dashboard fits into the same operating system.</p>
           </div>
 
-          <div class="product-frame">
+          <div class="product-frame" id="platform-showcase" tabindex="-1">
             <div class="browser-chrome" aria-hidden="true">
               <div class="browser-dots"><span></span><span></span><span></span></div>
               <div class="browser-tab">app.nazrah / workspace</div>
@@ -137,7 +142,7 @@
             <p data-en="The public website explains every capability while the real data and actions remain inside the protected dashboard." data-ar="يشرح الموقع العام جميع الإمكانات، بينما تبقى البيانات والإجراءات الفعلية داخل الداشبورد المحمي.">The public website explains every capability while the real data and actions remain inside the protected dashboard.</p>
           </div>
           <div class="capability-grid">
-            <article class="capability-card capability-card-wide market-intelligence-card">
+            <article class="capability-card capability-card-wide market-intelligence-card" id="capability-market" tabindex="-1">
               <div class="card-index">01</div>
               <div class="card-icon">↗</div>
               <h3 data-en="Market intelligence" data-ar="معلومات السوق">Market intelligence</h3>
@@ -146,7 +151,7 @@
               <div class="mini-chart" aria-hidden="true"><svg viewBox="0 0 520 150" preserveAspectRatio="none"><defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3e79ea" stop-opacity=".24"/><stop offset="1" stop-color="#3e79ea" stop-opacity="0"/></linearGradient></defs><path class="chart-fill" d="M0 120 C55 112 76 58 130 75 S205 112 255 64 S330 30 390 55 S455 82 520 20 L520 150 L0 150Z"/><path class="chart-line" d="M0 120 C55 112 76 58 130 75 S205 112 255 64 S330 30 390 55 S455 82 520 20"/></svg></div>
             </article>
 
-            <article class="capability-card">
+            <article class="capability-card" id="capability-trade" tabindex="-1">
               <div class="card-index">02</div><div class="card-icon">▦</div>
               <h3 data-en="Trade operations" data-ar="عمليات التجارة">Trade operations</h3>
               <p data-en="Orders, daily work, purchase and sales contracts, incoming and customer shipments, supplier reviews, and the Operation Room." data-ar="الطلبات والأعمال اليومية وعقود الشراء والبيع والشحنات الواردة وشحنات العملاء ومراجعات الموردين وغرفة العمليات.">Orders, daily work, purchase and sales contracts, incoming and customer shipments, supplier reviews, and the Operation Room.</p>
@@ -160,14 +165,14 @@
               <div class="contact-stack" aria-hidden="true"><span>AK</span><span>RM</span><span>LT</span><span>+8</span></div>
             </article>
 
-            <article class="capability-card capability-card-wide document-card">
+            <article class="capability-card capability-card-wide document-card" id="capability-documents" tabindex="-1">
               <div class="card-index">04</div><div class="card-icon">⌁</div>
               <h3 data-en="Documents and OCR" data-ar="المستندات والاستخراج">Documents and OCR</h3>
               <p data-en="Document Studio, PDF tools, structured extraction, review, and record-linked files without silently inventing missing facts." data-ar="استوديو المستندات وأدوات PDF والاستخراج المنظم والمراجعة والملفات المرتبطة بالسجلات دون اختلاق معلومات ناقصة.">Document Studio, PDF tools, structured extraction, review, and record-linked files without silently inventing missing facts.</p>
               <div class="document-demo" aria-hidden="true"><span>PDF</span><div><i></i><i></i><i></i></div><b>OCR ✓</b></div>
             </article>
 
-            <article class="capability-card capability-card-wide evidence-card">
+            <article class="capability-card capability-card-wide evidence-card" id="capability-evidence" tabindex="-1">
               <div class="card-index">05</div><div class="card-icon">◇</div>
               <h3 data-en="Sources, evidence, and AI analysis" data-ar="المصادر والأدلة والتحليل الذكي">Sources, evidence, and AI analysis</h3>
               <p data-en="Source Manager, Evidence Center, research planning, claim and fact review, conflicts, evidence mapping, benchmark validation, and AI analysis." data-ar="مدير المصادر ومركز الأدلة وتخطيط البحث ومراجعة الادعاءات والحقائق والتعارضات وربط الأدلة والتحقق المرجعي والتحليل الذكي.">Source Manager, Evidence Center, research planning, claim and fact review, conflicts, evidence mapping, benchmark validation, and AI analysis.</p>
