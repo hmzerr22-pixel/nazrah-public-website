@@ -51,8 +51,6 @@ if (canvas instanceof HTMLCanvasElement && hero instanceof HTMLElement && stage 
 
     syncOrigin();
     dropCenter();
-    window.setTimeout(dropCenter, 320);
-    window.setTimeout(dropCenter, 640);
 
     let lastPointerRipple = 0;
     const onPointerMove = event => {
@@ -75,7 +73,7 @@ if (canvas instanceof HTMLCanvasElement && hero instanceof HTMLElement && stage 
 
     const centerRippleTimer = window.setInterval(() => {
       if (heroVisible && !document.hidden) dropCenter();
-    }, 900);
+    }, 7200);
 
     const themeObserver = new MutationObserver(() => ripple.setPalette(paletteForTheme()));
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
