@@ -356,6 +356,47 @@
     });
   });
 
+  function initializeBlueprintNavigation() {
+    const links = document.querySelectorAll(".blueprint-link[href^='#']");
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    links.forEach(link => {
+      link.addEventListener("click", event => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        const targetRect = target.getBoundingClientRect();
+        const targetOffset = target.id === "platform-showcase"
+          ? 92
+          : Math.max(84, (window.innerHeight - targetRect.height) / 2);
+        const targetTop = Math.max(0, window.scrollY + targetRect.top - targetOffset);
+
+        event.preventDefault();
+        const revealTarget = () => {
+          target.classList.remove("is-spotlighted");
+          void target.offsetWidth;
+          if (!reducedMotion) target.classList.add("is-spotlighted");
+          target.focus({ preventScroll: true });
+          window.setTimeout(() => target.classList.remove("is-spotlighted"), 1100);
+        };
+
+        if (reducedMotion || !("IntersectionObserver" in window)) {
+          window.scrollTo({ top: targetTop, behavior: "auto" });
+          revealTarget();
+        } else {
+          const observer = new IntersectionObserver(entries => {
+            if (!entries.some(entry => entry.isIntersecting)) return;
+            observer.disconnect();
+            revealTarget();
+          }, { threshold: 0.15 });
+          observer.observe(target);
+          window.scrollTo({ top: targetTop, behavior: "smooth" });
+        }
+
+        history.replaceState(null, "", link.getAttribute("href"));
+      });
+    });
+  }
+
   els.form.addEventListener("submit", event => {
     const submitter = event.submitter;
     if (!submitter || submitter.value === "cancel") return;
@@ -411,5 +452,6 @@
   applyTheme(initialTheme);
   renderModule(activeModule);
   initializeSectionReveals();
+  initializeBlueprintNavigation();
   void loadWebsiteSettings();
 })();
