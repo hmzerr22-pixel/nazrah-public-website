@@ -160,7 +160,8 @@
     promotionDates: document.getElementById("promotion-dates"),
     setupPrice: document.getElementById("full-setup-price"),
     setupPriceOriginal: document.getElementById("full-setup-price-original"),
-    annualPrice: document.getElementById("full-annual-price")
+    annualPrice: document.getElementById("full-annual-price"),
+    monthlyPrice: document.getElementById("full-monthly-price")
   };
 
   let locale = storage.get("nazrah-public-locale", "en") === "ar" ? "ar" : "en";
@@ -191,6 +192,14 @@
     }).format(cents / 100);
   }
 
+  function formatMonthlyUsd(annualFeeCents) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 2
+    }).format(annualFeeCents / 1_200);
+  }
+
   function localizedValue(value, fallback = "") {
     if (!value || typeof value !== "object") return fallback;
     const selected = value[locale];
@@ -215,6 +224,7 @@
 
     els.setupPrice.textContent = formatUsd(promotionActive ? promotionPrice : setupFeeCents);
     els.annualPrice.textContent = formatUsd(annualFeeCents);
+    els.monthlyPrice.textContent = formatMonthlyUsd(annualFeeCents);
     els.setupPriceOriginal.hidden = !promotionActive;
     els.setupPriceOriginal.textContent = promotionActive ? formatUsd(setupFeeCents) : "";
     els.promotionBanner.hidden = !promotionActive;
